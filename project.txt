@@ -1,0 +1,4 @@
+The eduROV project is aimed at beeing an open-source, low cost, educational ROV kit.
+
+Until further notice, we will be doing the initial development. In later stages, contributions will be appreciated.
+The project is initiated by Trondheim Makers, the maker association in Trondheim Norway.
