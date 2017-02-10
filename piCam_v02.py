@@ -30,6 +30,6 @@ while True:
 			pygame.quit()
 			sys.exit()
 		if event.type == pygame.KEYUP and event.key == pygame.K_UP:
-			screen.fill(color1)
+			os.system("raspivid -o test -t 10000 -n")
 		if event.type == pygame.KEYUP and event.key == pygame.K_DOWN:
 			screen.fill(color2)
