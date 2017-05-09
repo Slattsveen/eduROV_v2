@@ -7,7 +7,7 @@ while True:
 	state = raw_input("motor config")
 	try:
 		ser.write(state)
-		time.sleep(2)
+		#time.sleep(2)
 		print("Sent commands")
 	except:
 		pass
