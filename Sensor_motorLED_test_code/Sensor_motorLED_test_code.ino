@@ -31,22 +31,26 @@ int battVolt = 0;
 String input = " ";
 String output = " ";
 bool stringComplete = false;
+//serial message intervals
+unsigned int delayTime = 1000;
+unsigned long messageTime = 0;
 
 // timing variables
 /*
   0 loop start
-  1 msg available
-  2 msg read
-  3 motorfunction called
-  4 motorfunction finished
-  5 loop finished
-*/                  
-unsigned long timing[6] = {0, 0, 0, 0, 0, 0};
+ 1 msg available
+ 2 msg read
+ 3 motorfunction called
+ 4 motorfunction finished
+ 5 loop finished
+ */
+unsigned long timing[6] = {
+  0, 0, 0, 0, 0, 0};
 
 void setup() {
   Serial.begin(115200);
-//  input.reserve(5);
-//  sensors.begin();
+  //  input.reserve(5);
+  //  sensors.begin();
   pinMode(dive, OUTPUT);
   pinMode(rise, OUTPUT);
   pinMode(portRev, OUTPUT);
@@ -70,36 +74,41 @@ void loop() {
     Serial.println("Recieved: ");
     Serial.println(input);
     /*for(int i = 1; i < 4; i++){
-      Serial.print(input[i]);
-      Serial.print(" : ");
-    }
-    Serial.println(" message printed");*/
+     Serial.print(input[i]);
+     Serial.print(" : ");
+     }
+     Serial.println(" message printed");*/
   }
-  
-// Read sensor data  
+
+  // Read sensor data  
   temp = getTemp(tempPin);    //currently with new sensor tmp36 // 1-wire comm is SLOW! change to analog!
   atm = round(kPaRead(pressPin));
   battVolt = getVolt(); // monitor voltage, given in 10*volt to skip float variable
-  output = String(temp) + ":" + String(atm) + ":" + String(battVolt);
-  
+  //output = String(temp) + ":" + String(atm) + ":" + String(battVolt);
+
   //Serial.println(getTemp());
   //Serial.println(kPaRead(pressPin));
 
   // read serial and update motor flags + activate motor mode
   motorUpdate(input);
-  
-  Serial.println(output);
+
+  if((millis() - messageTime) > delayTime){
+       messageTime = millis(); 
+      printSensorValues();
+  }
+  //Serial.println(output);
   output = " ";
   //delay(5);
-  
+
   timing[5] = millis(); // loop finished
   /*for(int i = 0; i < 6; i++){
-    Serial.print(i);
-    Serial.print(": ");
-    Serial.println(timing[i]);
-  }*/
-  //delay(2000);
+   Serial.print(i);
+   Serial.print(": ");
+   Serial.println(timing[i]);
+   }*/
+  delay(50);
 }
+
 
 
 

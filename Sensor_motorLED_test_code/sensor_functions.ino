@@ -24,4 +24,11 @@ int getVolt(){
   return int(2 * volt);
 }
 
+void printSensorValues(){
+  Serial.print(temp);
+  Serial.print(':');
+  Serial.print(atm);
+  Serial.print(':');
+  Serial.println(battVolt);
+}
 
