@@ -5,7 +5,7 @@ import sys, pygame, pygame.camera, os, time
 os.system("sudo modprobe bcm2835-v4l2")
 pygame.init()
 pygame.camera.init()
-FPS = 60
+FPS = 35
 fpsClock = pygame.time.Clock()
 imgCounter = 0
 
@@ -21,20 +21,21 @@ cam_list = pygame.camera.list_cameras()
 cam = pygame.camera.Camera(cam_list[0], (picWidth,picHeight))
 cam.start()
 
-def texts(h, w):
-   font=pygame.font.Font(None,15)
-   scoretext=font.render(str(w) + " : " + str(h), 1,(255,255,255))
-   screen.blit(scoretext, (20, 20))
+def text(content, xPos, yPos):
+   font = pygame.font.Font(None, 25)
+   text = font.render(str(content), 1, (255, 255, 255))
+   screen.blit(text, (xPos, yPos))
 
 while True:
 	image1 = cam.get_image()
 	image1 = pygame.transform.scale(image1, (900, 600))
 	#screen.blit(image1, (190, 60))
 	screen.blit(image1, (0, 0))
-	texts(picHeight, picWidth)
+	resolutionText = str(picWidth) + ":" + str(picHeight) #create string of the text to display
+	text(resolutionText, 30, 30) # use text generation function
 	pygame.display.update()
 	fpsClock.tick(FPS)
-	
+        
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE):
 			cam.stop()
