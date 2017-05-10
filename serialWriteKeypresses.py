@@ -22,7 +22,7 @@ state = "000"
 lastState = "000"
 
 def printState(array):
-        msg = " "
+        msg = ""
         for val in array:
                 msg += str(val)
         print(msg)
@@ -43,9 +43,9 @@ while True:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
                         states[0] = 2
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
-                        states[2] = 1
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
                         states[2] = 2
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
+                        states[2] = 1
                 if event.type == pygame.KEYUP and event.key == pygame.K_a:
                         states[1] = 0
                 if event.type == pygame.KEYUP and event.key == pygame.K_q:
@@ -57,7 +57,7 @@ while True:
                 if event.type == pygame.KEYUP and event.key == pygame.K_e:
                         states[2] = 0
                 if event.type == pygame.KEYUP and event.key == pygame.K_d:
-                        states[0] = 0
+                        states[2] = 0
         state = printState(states)
 
         if state != lastState:

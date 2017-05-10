@@ -3,11 +3,11 @@ void motorUpdate(String msg) {
   // expects a 3 digit string, values 0, 1 or 2
 
   //Diving/rising motor
-  if (msg[1] == '1') {
+  if (msg[0] == '1') {
     //Serial.println("i = 0 -> 1");
     digitalWrite(dive, HIGH);
     digitalWrite(rise, LOW);
-  } else if (msg[1] == '2') {
+  } else if (msg[0] == '2') {
     //Serial.println("i = 0 -> 2");
     digitalWrite(dive, LOW);
     digitalWrite(rise, HIGH);
@@ -18,11 +18,11 @@ void motorUpdate(String msg) {
   }
 
   // port motor
-  if (msg[2] == '1') {
+  if (msg[1] == '1') {
     //Serial.println("i = 1 -> 1");
     digitalWrite(portFwd, HIGH);  //the pairs can not be HIGH at the same time! will fry the control board!
     digitalWrite(portRev, LOW);
-  } else if (msg[2] == '2') {
+  } else if (msg[1] == '2') {
     //Serial.println("i = 1 -> 2");
     digitalWrite(portFwd, LOW);
     digitalWrite(portRev, HIGH);
@@ -33,11 +33,11 @@ void motorUpdate(String msg) {
   }
 
   //starboard motor
-  if (msg[3] == '1') {
+  if (msg[2] == '1') {
     //Serial.println("i = 2 -> 1");
     digitalWrite(strbdFwd, HIGH);
     digitalWrite(strbdRev, LOW);
-  } else if (msg[3] == '2') {
+  } else if (msg[2] == '2') {
     //Serial.println("i = 2 -> 2");
     digitalWrite(strbdFwd, LOW);
     digitalWrite(strbdRev, HIGH);
