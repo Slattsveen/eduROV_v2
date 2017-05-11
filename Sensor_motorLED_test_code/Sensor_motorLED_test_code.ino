@@ -49,8 +49,6 @@ unsigned long timing[6] = {
 
 void setup() {
   Serial.begin(115200);
-  //  input.reserve(5);
-  //  sensors.begin();
   pinMode(dive, OUTPUT);
   pinMode(rise, OUTPUT);
   pinMode(portRev, OUTPUT);
@@ -62,7 +60,7 @@ void setup() {
 void loop() {
   timing[0] = millis(); // loop start
   if (Serial.available() > 0) {
-    input = " ";
+    input = "";
     timing[1] = millis(); // message available
     while (Serial.available()) {
       char inChar = (char)Serial.read();
@@ -73,7 +71,7 @@ void loop() {
     timing[2] = millis(); // message received
     Serial.println("Recieved: ");
     Serial.println(input);
-    /*for(int i = 1; i < 4; i++){
+    /*for(int i = 1; i < 4; i++){ // for-loop for debugging serial comm
      Serial.print(input[i]);
      Serial.print(" : ");
      }
@@ -84,21 +82,16 @@ void loop() {
   temp = getTemp(tempPin);    //currently with new sensor tmp36 // 1-wire comm is SLOW! change to analog!
   atm = round(kPaRead(pressPin));
   battVolt = getVolt(); // monitor voltage, given in 10*volt to skip float variable
-  //output = String(temp) + ":" + String(atm) + ":" + String(battVolt);
-
-  //Serial.println(getTemp());
-  //Serial.println(kPaRead(pressPin));
 
   // read serial and update motor flags + activate motor mode
   motorUpdate(input);
 
+  // send serial packet with sensor info if the delayTime has passed
   if((millis() - messageTime) > delayTime){
        messageTime = millis(); 
       printSensorValues();
   }
   //Serial.println(output);
-  output = " ";
-  //delay(5);
 
   timing[5] = millis(); // loop finished
   /*for(int i = 0; i < 6; i++){
@@ -106,9 +99,5 @@ void loop() {
    Serial.print(": ");
    Serial.println(timing[i]);
    }*/
-  delay(50);
+  delay(10);
 }
-
-
-
-
