@@ -88,17 +88,22 @@ while True:
         #print(serialInput)
     if serialInput.count(':') == 2: #check that the message is complete
         tempWater, pressureWater, batteryVoltage = serialInput.split(':')
+        #print(batteryVoltage)
+        tempWater = round(float(tempWater), 1)
+        #pressureWater = round(pressureWater, 1)
+        batteryVoltage = round(float(batteryVoltage), 1)
 
     #update sensor values from the onboard senseHat
         #add conversions to water depth and atmospheric pressure
-    tempROV = senseHat.get_temperature()
-    pressureROV = senseHat.get_pressure() / 10 
+    tempROV = round(senseHat.get_temperature(), 1)
+    pressureROV = round((senseHat.get_pressure() / 10), 1) 
     bearingROV = senseHat.get_compass()
     humidityROV = senseHat.get_humidity()
     orientationROV = senseHat.get_orientation()
 
     #write sensorvalues to screen
     text((str(batteryVoltage) + "V"), 750, 20)
+    text("min voltage: 7.5V", 750, 40)
     text("Outside ROV:", 20, 120)
     text((str(tempWater) + " C"), 20, 145)
     text((str(pressureWater) + " kPa"), 20, 170)
