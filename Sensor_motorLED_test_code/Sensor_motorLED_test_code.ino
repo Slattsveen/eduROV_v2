@@ -26,7 +26,7 @@ byte strbd = 0;
 //sensor variables
 double temp = 0;
 int atm = 0;
-int battVolt = 0;
+double battVolt = 0;
 
 String input = " ";
 String output = " ";
