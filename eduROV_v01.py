@@ -25,6 +25,7 @@ bearingROV = senseHat.get_compass() #gives compas bearing in degrees from North
 humidityROV = senseHat.get_humidity()
 orientationROV = senseHat.get_orientation() #a dict containgin values with tags 'pitch', 'roll', 'yaw'
 batteryVoltage = 0
+BATTVOLTCALIBRATION = 0.27
 tempWater = 0
 pressureWater = 0
 
@@ -91,7 +92,7 @@ while True:
         #print(batteryVoltage)
         tempWater = round(float(tempWater), 1)
         #pressureWater = round(pressureWater, 1)
-        batteryVoltage = round(float(batteryVoltage), 1)
+        batteryVoltage = round(float(batteryVoltage) - BATTVOLTCALIBRATION, 1)
 
     #update sensor values from the onboard senseHat
         #add conversions to water depth and atmospheric pressure
