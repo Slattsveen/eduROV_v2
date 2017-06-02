@@ -11,12 +11,12 @@ senseHat = SenseHat()
 ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0.050) 
 ser.close()
 ser.open()
-FPS = 35 #image updating frequenzy
+FPS = 28 #image updating frequenzy
 fpsClock = pygame.time.Clock()
 imgCounter = 0 #counter variable for numbering still frames taken during mission
 
 width, height = 900, 600
-picWidth, picHeight = 400, 250
+picWidth, picHeight = 600, 400 #400, 250 used
 
 ##sensor variables, internally and externally of the ROV hull
 tempROV = senseHat.get_temperature()
@@ -49,6 +49,7 @@ lastState = "000"
 ##color definitions
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+BLUE = (85, 151, 255)
 
 ##import GUI elements (sprites), setup main screen
 screen = pygame.display.set_mode((900, 600), 0)
@@ -62,7 +63,7 @@ cam.start()
 ##function definitions
 def text(content, xPos, yPos):
     #string text to display, x and y position of the text to be displayed
-    font = pygame.font.Font(None, 25)
+    font = pygame.font.Font(None, 24)
     text = font.render(str(content), 1, (255, 255, 255))
     screen.blit(text, (xPos, yPos))
 
@@ -78,8 +79,9 @@ def printState(array):
 while True:
     ##update camera feed with a new image
     streamImage = cam.get_image()
-    streamImage = pygame.transform.scale(streamImage, (900, 600))
-    screen.blit(streamImage, (0, 0)) #the camera feed now covers the whole window
+    #streamImage = pygame.transform.scale(streamImage, (900, 600))
+    screen.blit(streamImage, (150, 100)) #the camera feed now covers the whole window
+    #screen.blit(streamImage, (0, 0)) #the camera feed now covers the whole window
 
     ##read sensor data
     #receive serial message with sensor data from Arduino
@@ -159,5 +161,6 @@ while True:
     ##update the whole screen image
     pygame.display.flip()
     fpsClock.tick(FPS)
+    screen.fill(BLUE)
 
     
